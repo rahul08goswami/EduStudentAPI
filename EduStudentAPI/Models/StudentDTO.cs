@@ -15,7 +15,8 @@ namespace EduStudentAPI.Models
         public string Address { get; set; }
         //[DateCheck]
         //public DateTime AdmissionDate { get; set; }
-        public DateTime DOB { get; set; }
+        public int Age { get; set; }
+        //public DateTime DOB { get; set; }
         //public int? DepartmentId { get; set; }
     }
 }

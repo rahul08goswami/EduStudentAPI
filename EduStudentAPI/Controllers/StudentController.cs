@@ -11,14 +11,22 @@ namespace EduStudentAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController(CollegeDBContext dbContext, IMapper mapper) : ControllerBase
+    public class StudentController(CollegeDBContext dbContext, IMapper mapper, ILogger<StudentController> logger) : ControllerBase
     {
         private readonly CollegeDBContext _dbContext = dbContext;
         private readonly IMapper _mapper = mapper;
+        private readonly ILogger<StudentController> _logger = logger;
+
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StudentDTO>>> GetStudents()
         {
+            _logger.LogTrace("LogTrace.");
+            _logger.LogDebug("LogDebug.");
+            _logger.LogInformation("LogInformation.");
+            _logger.LogWarning("LogWarning.");
+            _logger.LogError("LogError.");
+            _logger.LogCritical("LogCritical.");
             //var students = await _dbContext.Students
             //    .Select(s => new StudentDTO
             //    {
