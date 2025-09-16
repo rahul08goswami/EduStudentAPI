@@ -7,7 +7,7 @@ namespace EduStudentAPI.Models
         public int Id { get; set; }
 
         [Required]
-        public string StudentName { get; set; }
+        public string Name { get; set; }
 
         [EmailAddress]
         public string Email { get; set; }
@@ -16,6 +16,6 @@ namespace EduStudentAPI.Models
         //[DateCheck]
         //public DateTime AdmissionDate { get; set; }
         public DateTime DOB { get; set; }
-        public int? DepartmentId { get; set; }
+        //public int? DepartmentId { get; set; }
     }
 }

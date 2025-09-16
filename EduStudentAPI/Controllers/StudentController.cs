@@ -1,4 +1,6 @@
-﻿using EduStudentAPI.Data;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using EduStudentAPI.Data;
 using EduStudentAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -9,40 +11,37 @@ namespace EduStudentAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentController : ControllerBase
+    public class StudentController(CollegeDBContext dbContext, IMapper mapper) : ControllerBase
     {
-        private readonly CollegeDBContext _dbContext;
-        //private readonly IMapper mapper;
-
-        public StudentController(CollegeDBContext dbContext)
-        {
-            _dbContext = dbContext;
-            //this.mapper = mapper;
-        }
-        //public StudentController(CollegeDBContext dbContext, IMapper mapper)
-        //{
-        //    _dbContext = dbContext;
-        //    //this.mapper = mapper;
-        //}
+        private readonly CollegeDBContext _dbContext = dbContext;
+        private readonly IMapper _mapper = mapper;
 
         [HttpGet]
-        public async Task<List<StudentDTO>> GetStudents()
-        //public async Task<ActionResult<IEnumerable<StudentDTO>>> GetStudents()
+        public async Task<ActionResult<IEnumerable<StudentDTO>>> GetStudents()
         {
+            //var students = await _dbContext.Students
+            //    .Select(s => new StudentDTO
+            //    {
+            //        Id = s.Id,
+            //        StudentName = s.StudentName,
+            //        Email = s.Email,
+            //        Address = s.Address,
+            //        DOB = s.DOB                    
+            //    })
+            //    .ToListAsync();
+
             //var students = await _dbContext.Students.ToListAsync();
-            var students = await _dbContext.Students
-                .Select(s => new StudentDTO
-                {
-                    Id = s.Id,
-                    StudentName = s.StudentName,
-                    Email = s.Email,
-                    Address = s.Address,
-                    DOB = s.DOB,
-                    DepartmentId = s.DepartmentId
-                })
+            //var studentsDTO = (List<StudentDTO>) _mapper.Map(students, typeof(List<Student>), typeof(List<StudentDTO>));
+            //var studentsDTO = _mapper.Map<List<StudentDTO>>(students);
+
+            //•	ProjectTo<StudentDTO>(_mapper.ConfigurationProvider): AutoMapper's QueryableExtensions builds an expression
+            //tree that maps Student → StudentDTO. That expression is translated by EF Core into SQL so only the DTO fields are selected.
+            var studentsDTO = await _dbContext.Students
+                .ProjectTo<StudentDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
-            return students;
+
+            return Ok(studentsDTO);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace EduStudentAPI.Data.Config
             builder.Property(n => n.StudentName).IsRequired();
             builder.Property(n => n.StudentName).HasMaxLength(250);
             builder.Property(n => n.Address).IsRequired(false).HasMaxLength(500);
-            builder.Property(n => n.Email).IsRequired().HasMaxLength(250);
+            builder.Property(n => n.EmailAddress).IsRequired().HasMaxLength(250);
 
             builder.HasData(new List<Student>()
             {
@@ -24,14 +24,14 @@ namespace EduStudentAPI.Data.Config
                     Id = 1,
                     StudentName = "Venkat",
                     Address="India",
-                    Email="venkat@gmail.com",
+                    EmailAddress="venkat@gmail.com",
                     DOB = new DateTime(2022,12,12)
                 },
                 new Student {
                     Id = 2,
                     StudentName = "Nehanth",
                     Address="India",
-                    Email="nehanth@gmail.com",
+                    EmailAddress="nehanth@gmail.com",
                     DOB = new DateTime(2022,06,12)
                 }
             });
