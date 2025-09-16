@@ -16,15 +16,19 @@ namespace EduStudentAPI
             builder.Logging.AddDebug();
 
             #region Serilog Configuration
+            //builder.Logging.AddLog4Net().SetMinimumLevel(LogLevel.Trace); //Loads log4net.config file by default
+            #endregion
 
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.File(path: "Log/log.txt",rollingInterval: RollingInterval.Day,fileSizeLimitBytes: 10485760 // 10 MB per file
-                ,retainedFileCountLimit: 31 , rollOnFileSizeLimit: true) 
-                .MinimumLevel.Verbose()
-                .CreateLogger();
+            #region Serilog Configuration
 
-            //builder.Host.UseSerilog(); //This only uses serilog for logging and disables other loggers
-            builder.Logging.AddSerilog(); //This uses serilog along with other loggers
+            //Log.Logger = new LoggerConfiguration()
+            //    .WriteTo.File(path: "Log/log.txt",rollingInterval: RollingInterval.Day,fileSizeLimitBytes: 10485760 // 10 MB per file
+            //    ,retainedFileCountLimit: 31 , rollOnFileSizeLimit: true) 
+            //    .MinimumLevel.Verbose()
+            //    .CreateLogger();
+
+            ////builder.Host.UseSerilog(); //This only uses serilog for logging and disables other loggers
+            //builder.Logging.AddSerilog(); //This uses serilog along with other loggers
 
             #endregion
             // Add services to the container.
